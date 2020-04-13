@@ -45,6 +45,13 @@ router.post('/', (req,res) => {
     // req.body.productID = productArray.length + 1
     // res.send(req.body);
     // productArray.push(req.body);
+    ProductCollection.create({
+        productID : req.body.productID,
+        productName : req.body.productName,
+        price : req.body.price,
+        quantity : req.body.quantity
+    });
+    res.send("Product Created");
 })
 
 module.exports = router;
