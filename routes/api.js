@@ -1,10 +1,14 @@
+// reference express module
 let express = require('express');
+// create router
 let router = express.Router();
+// json middleware
 router.use(express.json());
 
+// reference Product Model
 let ProductCollection = require('../models/ProductSchema');
 
-// // test data
+// // TEST DATA
 // let productArray = [
 //     {
 //         'productID': 1,
@@ -26,6 +30,7 @@ let ProductCollection = require('../models/ProductSchema');
 //     }
 // ]
 
+// test route
 // router.get('/test', (req,res) => {
 //     res.send("Test");
 // })
@@ -33,25 +38,38 @@ let ProductCollection = require('../models/ProductSchema');
 // get all products
 router.get('/', (req,res) => {
     // res.send(productArray);
+    ProductCollection.find(
+        {}, (error, result) => {
+            error ? res.send(error) : res.send(result)
+        }
+    )
 });
 
 // get product by ID
 router.get('/:productID', (req,res) => {
     // res.send(productArray[req.params.productID - 1]);
+    ProductCollection.findOne(
+        {productID : req.params.productID}, (error, result) => {
+            error ? res.send(error) : res.send(result)
+        }
+    )
+});
+
+// get product by unique ID
+router.get('/ID/:productID', (req,res) => {
+    // res.send(productArray[req.params.productID - 1]);
+    ProductCollection.findById(req.params.productID, (error, result) => {
+        error ? res.send(error) : res.send(result)}
+        );
 });
 
 // create a product
 router.post('/', (req,res) => {
     // req.body.productID = productArray.length + 1
     // res.send(req.body);
-    // productArray.push(req.body);
-    ProductCollection.create({
-        productID : req.body.productID,
-        productName : req.body.productName,
-        price : req.body.price,
-        quantity : req.body.quantity
-    });
-    res.send("Product Created");
+    ProductCollection.create(req.body);
+    res.send(`${req.body.productName} Created`);
 })
 
+// export routes
 module.exports = router;

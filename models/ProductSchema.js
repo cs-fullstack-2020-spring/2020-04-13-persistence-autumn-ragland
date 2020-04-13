@@ -1,6 +1,4 @@
-// file to model data
-
-// import mongoose and schema class
+// reference mongoose and schema class
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
