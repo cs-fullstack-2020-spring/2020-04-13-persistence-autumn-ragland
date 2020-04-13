@@ -2,6 +2,8 @@ let express = require('express');
 let router = express.Router();
 router.use(express.json());
 
+"mongodb+srv://admin:C0d3Cr3w@cluster0-ueqkv.mongodb.net/cs_database_4?retryWrites=true&w=majority"
+
 let productArray = [
     {
         'productID': 1,
